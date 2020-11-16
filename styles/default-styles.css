@@ -1,0 +1,24 @@
+body {
+    margin: auto;
+    width: 500px;  
+}
+
+main{
+    margin: auto;
+    width: 90%;    
+}
+
+#return{
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 7px;
+}
+
+button{
+    margin-left: 10%;
+    width: 150px;
+}
+
+#Calender{
+    margin-left: 35%;
+}
