@@ -1,6 +1,6 @@
 import * as ajax from './ajax.js'
 
-const donkiLink = "https://kauai.ccmc.gsfc.nasa.gov/DONKI/WS/get/";
+const donkiLink = "https://people.rit.edu/mes3585/330/project3/php/donki-proxy.php";
 
 const eventTypes = [
     {
@@ -33,10 +33,22 @@ const eventTypes = [
     }
 ]
 
-function getSolarEventText(callback)
+function getSolarEventText(start,end,callback)
 {
-    let json = {name : "temp/fakedata"}//ajax.getJSON(donkiLink + eventTypes[0].abvr);
-    callback(json.toString());
+    function formatSolarText(json)
+    {
+        let text = '';
+        json.forEach(sEvent => {
+            if('note' in sEvent)
+            {
+                text += "<p>" + sEvent.note + "</p>";
+            }
+        });
+        callback(text);
+    }
+    ajax.getJSON(donkiLink + `?type=${eventTypes[0].abvr}&start=${start}&end=${end}`,formatSolarText);
+    //ajax.getJSON("https://people.rit.edu/mes3585/330/project3/php/donki-proxy.php?type=CME&start=yyyy-MM-dd&end=yyyy-MM-dd",formatSolarText);
+    
 }
 
 export {getSolarEventText}
