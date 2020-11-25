@@ -37,7 +37,12 @@ function getSolarEventText(start,end,callback)
 {
     function formatSolarText(json)
     {
-        let text = '';
+        if(Object.keys(json).length == 0)
+        {
+            callback("No data found for date");
+            return;
+        }
+        let text = "";
         json.forEach(sEvent => {
             if('note' in sEvent)
             {
@@ -47,7 +52,6 @@ function getSolarEventText(start,end,callback)
         callback(text);
     }
     ajax.getJSON(donkiLink + `?type=${eventTypes[0].abvr}&start=${start}&end=${end}`,formatSolarText);
-    //ajax.getJSON("https://people.rit.edu/mes3585/330/project3/php/donki-proxy.php?type=CME&start=yyyy-MM-dd&end=yyyy-MM-dd",formatSolarText);
     
 }
 

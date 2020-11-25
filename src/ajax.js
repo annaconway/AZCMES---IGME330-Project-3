@@ -2,8 +2,13 @@ function getJSON (url, callback){
     let xhr = new XMLHttpRequest();
 
     xhr.onload = (e) => {
-        let response = e.target;
-        callback(JSON.parse(response.responseText));
+        let response = e.target.responseText;
+        if(response == "")
+        {
+            callback({});
+            return;
+        }
+        callback(JSON.parse(response));
     };
     xhr.open("GET",url);
     xhr.send();

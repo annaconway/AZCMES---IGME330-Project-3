@@ -1,4 +1,5 @@
 import * as spaceText from "./donki.js"
+import * as dates from "./dates.js"
 let textBox;
 let calender;
 
@@ -6,10 +7,15 @@ export function init()
 {
     textBox = document.querySelector("#return");
     calender = document.querySelector("#start");
-    let date = calender.value;
-    let splitdate = date.split(/\D/);
-    splitdate[1] = String(Number(splitdate[1])-1);
-    let datePrevious = splitdate[0] + '-' + splitdate[1] + '-' + splitdate[2];
-    spaceText.getSolarEventText("yyyy-MM-dd","yyyy-MM-dd",(text) => {textBox.innerHTML = text});
+
+    function loadData()
+    {
+        let date = calender.value;
+        spaceText.getSolarEventText(dates.addDays(date,-1),date,(text) => {textBox.innerHTML = text});
+    }
+    calender.onchange = loadData;
+    calender.value = "2020-01-22";
+    loadData();
+
     textBox.innerHTML = 'loading space data...';
 }
