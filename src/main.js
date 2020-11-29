@@ -1,12 +1,14 @@
 import * as spaceText from "./donki.js"
+import * as giphy from "./giphy.js"
 import * as dates from "./dates.js"
-let textBox;
-let calender;
+
+let textBox, calender, searchButton; 
 
 export function init()
 {
     textBox = document.querySelector("#return");
     calender = document.querySelector("#start");
+    searchButton = document.querySelector("#search");
 
     function loadData()
     {
@@ -18,4 +20,14 @@ export function init()
     loadData();
 
     textBox.innerHTML = 'loading space data...';
+
+    setUpUI();
+}
+
+function setUpUI(){    
+
+    searchButton.onclick = e => {
+        giphy.generateGif();
+    }
+
 }
