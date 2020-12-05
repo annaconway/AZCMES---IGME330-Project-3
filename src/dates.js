@@ -5,7 +5,7 @@ function stringToDate(str)
     return new Date(Number(splitdate[0]),Number(splitdate[1])-1,Number(splitdate[2]));
 }
 
-function monthString(num)
+function formatNum(num)
 {
     if(num < 10)
         return '0' + num;
@@ -14,7 +14,7 @@ function monthString(num)
 
 function dateToString(date)
 {
-    return `${date.getFullYear()}-${monthString(date.getMonth()+1)}-${date.getDate()}`;
+    return `${date.getFullYear()}-${formatNum(date.getMonth()+1)}-${formatNum(date.getDate())}`;
 }
 
 function addDays(dateString,days)
@@ -25,5 +25,25 @@ function addDays(dateString,days)
     return dateToString(dateObj);
 }
 
+//returns a date string from the past year
+function randomDateString()
+{
+    let today = new Date(Date.now());
+    let randomDay = Math.floor(Math.random() * 365);
+    return addDays(
+        dateToString(today),
+        -randomDay
+        );
+}
 
-export {addDays}
+function yesterday()
+{   
+    let today = new Date(Date.now()); 
+    return addDays(
+    dateToString(today),
+    -1
+    );
+}
+
+
+export {addDays, randomDateString, yesterday}

@@ -37,19 +37,15 @@ function getSolarEventText(start,end,callback)
 {
     function formatSolarText(json)
     {
-        if(Object.keys(json).length == 0)
+        let keys = Object.keys(json);
+        if(keys.length == 0)
         {
-            callback("No data found for date");
+            callback("No solar activity was detected");
             return;
         }
-        let text = "";
-        json.forEach(sEvent => {
-            if('note' in sEvent)
-            {
-                text += "<p>" + sEvent.note + "</p>";
-            }
-        });
-        callback(text);
+        let event = json[keys[Math.floor(Math.random()*keys.length)]];
+        console.log(event);
+        callback("CME found at " + event.startTime, event.note);
     }
     ajax.getJSON(donkiLink + `?type=${eventTypes[0].abvr}&start=${start}&end=${end}`,formatSolarText);
     

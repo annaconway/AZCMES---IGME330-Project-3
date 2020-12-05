@@ -1,5 +1,5 @@
 body {
-    margin: auto;
+    margin: 25% auto 25% auto;
     width: 500px;  
 }
 
@@ -9,7 +9,7 @@ main{
     border: 2px solid black;
     border-radius: 10px;
     padding: 30px; 
-    background-color: rgba(255, 255, 255, 0.493);
+    background-color: rgba(255, 255, 255, 0.75);
 }
 
 #return{

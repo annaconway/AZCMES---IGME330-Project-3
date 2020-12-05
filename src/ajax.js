@@ -98,7 +98,7 @@ function loadGiphy(e) {
     bg.style.height = `100%`;
     bg.style.backgroundPosition = `center top`;
     bg.style.backgroundRepeat = `no-repeat`;
-    bg.style.backgroundSize = `cover`;
+    bg.style.backgroundSize = `100% 100%`;
 }
 
 export { getJSON, getGiphy }
