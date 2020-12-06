@@ -1,9 +1,11 @@
 import * as ajax from './ajax.js'
 
+//constant segments of the api url
 const nytURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=";
 const fliterStart = "&fq=section_name:(\"";
 const filterMid = "\") AND pub_date:(";
 const key = "&api-key=8iYDdnGGzxrl05WTA0GZWNdKMJjE3I5O";
+
 let newsType = "World";
 
 function useNational()
@@ -16,6 +18,7 @@ function useWorld()
     newsType = "World";
 }
 
+//gets article information using the new york times search api for a given date
 function getWorldEventText(date, callback) {
     function formatArticleInfo(json) {
         let numArticles = json.response.docs.length;
@@ -26,6 +29,7 @@ function getWorldEventText(date, callback) {
         }
         let articles = [];
         let links = [];
+        //loop through articles and pull out wanted info
         for(let i = 0; i < numArticles; i++)
         {
             articles.push(json.response.docs[i].abstract);

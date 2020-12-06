@@ -1,6 +1,7 @@
 import * as utils from './utils.js'
 
-
+//performs and xhr request at the given url, and parses to a js object
+//info is used to pass additional info between callbacks
 function getJSON(url, callback,info = null) {
     let xhr = new XMLHttpRequest();
 
@@ -10,6 +11,7 @@ function getJSON(url, callback,info = null) {
             callback({});
             return;
         }
+        //pass additional params if given
         if(info != null)
         {
             callback(JSON.parse(response),info);
@@ -23,6 +25,7 @@ function getJSON(url, callback,info = null) {
     xhr.send();
 }
 
+//gets a gif from giphy
 function getGiphy(url) {
     let xhr = new XMLHttpRequest();
     xhr.onload = loadGiphy;
@@ -30,6 +33,7 @@ function getGiphy(url) {
     xhr.send();
 }
 
+//loads and formats a gif to be used as the backgroud for the app
 function loadGiphy(e) {
     let xhr = e.target;
     let obj = JSON.parse(xhr.responseText);
