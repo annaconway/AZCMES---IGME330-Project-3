@@ -12,10 +12,14 @@ function getWorldEventText(date, callback) {
             callback("no signignificant events happened.");
             return;
         }
-        let article = json.response.docs[Math.floor(Math.random() * numArticles)];
-        let mainText = article.abstract;
-        let additionalInfo = article.web_url;
-        callback(mainText);
+        let articles = [];
+        let links = [];
+        for(let i = 0; i < numArticles; i++)
+        {
+            articles.push(json.response.docs[i].abstract);
+            links.push(json.response.docs[i].web_url);
+        }
+        callback(articles,links);
     }
     ajax.getJSON(nytURL + fliterStart + date + ")" + key, formatArticleInfo);
 }

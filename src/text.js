@@ -1,41 +1,67 @@
 const loadingText =
+    [
+        "Finding meaning in the numbers",
+        "Seeing through the lies",
+        "Consulting the lizard people",
+        "Connecting the dots",
+        "Listening to the voices in our heads"
+    ]
+
+const crazyText =
+    [
+        "Conncidence? Unlikely.",
+        "Anyone could see the alien influence that cause this.",
+    ]
+
+const concuranceText =
+    [
+        " mere moments after ",
+        " within 24 hours of ",
+        " at the same time as ",
+        " and at the exact same moment ",
+        " within seconds "
+    ]
+
+const sameDayText = 
 [
-    "Finding meaning in the numbers",
-    "Seeing through the lies",
-    "Consulting the lizard people",
-    "Connecting the dots",
-    "Listening to the voices in our heads"
+    "On the very same day, ",
 ]
 
-const crazyText = 
-[
-    "Conncidence? Unlikely.",
-    "Anyone could see the alien influence."
-]
-
-const concuranceText = 
-[
-    " mere moments after ",
-    " within 24 hours of ",
-    " at the same time as ",
-    " and at the exact same moment ",
-    " within seconds "
-]
-
-
-function randomElement(list)
-{
+function randomElement(list) {
     return list[Math.floor(Math.random() * list.length)];
 }
 
-function getLoadingText()
-{
-    return randomElement(loadingText) + "...";
-}
+class TextGenerator {
 
-function formatFinalString(spaceText, worldText)
-{
-    return spaceText + randomElement(concuranceText) + worldText + randomElement(crazyText);
-}
+    constructor (spaceEventList, worldEventList)
+    {
+        this.spaceEvents = spaceEventList;
+        this.worldEvents = worldEventList;
 
-export {getLoadingText, formatFinalString};
+        this.currentIndex = 0;
+        this.maxIndex = Math.min(this.spaceEvents.length-1, this.worldEvents.length-1);
+    }
+
+    loading() {
+        return randomElement(loadingText) + "...";
+    }
+
+    next() {
+        if(this.currentIndex <= this.maxIndex)
+        {
+            let string = "";
+            if(this.currentIndex > 0)
+                string += randomElement(sameDayText);
+            string += this.spaceEvents[this.currentIndex] + randomElement(concuranceText);
+            string += this.worldEvents[this.currentIndex] + randomElement(crazyText);
+            this.currentIndex++;
+            return string;
+        }
+        else
+        {
+            return "You've reached the bottom of the rabbit hole. Search on another date to find out more.";
+        }
+    }
+
+}
+export { TextGenerator };

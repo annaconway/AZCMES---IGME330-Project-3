@@ -6,6 +6,7 @@ import * as nytimes from "./nytimes.js"
 
 let textBox, calender, searchButton, randomButton, nytButton, spaceForcastButton;
 let timeslink="", spaceNote=""; 
+let textGenerator;
 
 export function init()
 {
@@ -16,6 +17,9 @@ export function init()
     nytButton = document.querySelector("#article");
     spaceForcastButton = document.querySelector("#forecast");
 
+    //create a generator with empty lists for loading text
+    textGenerator = new text.TextGenerator([],[]);
+
     calender.value = dates.yesterday();
     search();
 
@@ -25,7 +29,7 @@ export function init()
 
 function reset()
 {
-    textBox.innerHTML = text.getLoadingText();
+    textBox.innerHTML = textGenerator.loading();
     giphy.generateGif();
     timeslink = "";
     spaceNote = "";
@@ -36,17 +40,18 @@ function search()
     reset();
 
     let date = calender.value;
-    let worldText = "";
-    let solarText = "";
+    let worldText = [];
+    let solarText = [];
 
     function donkiCallback(mainText, additionalText)
     {
         solarText = mainText;
         spaceNote = additionalText;
 
-        if(worldText != "")
+        if(worldText.length > 0)
         {
-            textBox.innerHTML = text.formatFinalString(solarText,worldText);
+            textGenerator = new text.TextGenerator(solarText,worldText);
+            textBox.innerHTML = textGenerator.next();
         }
     }
 
@@ -55,9 +60,10 @@ function search()
         worldText = mainText;
         timeslink = additionalText;
         
-        if(solarText != "")
+        if(solarText.length > 0)
         {
-            textBox.innerHTML = text.formatFinalString(solarText,worldText);
+            textGenerator = new text.TextGenerator(solarText,worldText);
+            textBox.innerHTML = textGenerator.next();
         }
     }
 

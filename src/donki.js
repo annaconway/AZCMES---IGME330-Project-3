@@ -4,51 +4,67 @@ const donkiLink = "https://people.rit.edu/mes3585/330/project3/php/donki-proxy.p
 
 const eventTypes = [
     {
-        name : "Coronal Mass Ejection",
-        abvr : "CME"
+        name: "Coronal Mass Ejection",
+        abvr: "CME"
     },
     {
-        name : "Geomagnetic Storm",
-        abvr : "GST"
+        name: "Geomagnetic Storm",
+        abvr: "GST"
     },
     {
-        name : "Interplanetary Shock",
-        abvr : "IPS"
+        name: "Interplanetary Shock",
+        abvr: "IPS"
     },
     {
-        name : "Solar Flare",
-        abvr : "FLR"
+        name: "Solar Flare",
+        abvr: "FLR"
     },
     {
-        name : "Coronal Mass Ejection",
-        abvr : "CME"
+        name: "Magnetopause Crossing",
+        abvr: "MPC"
     },
     {
-        name : "Magnetopause Crossing",
-        abvr : "MPC"
-    },
-    {
-        name : "Radiation Belt Enhancment",
-        abvr : "RBE"
+        name: "Radiation Belt Enhancment",
+        abvr: "RBE"
     }
 ]
 
-function getSolarEventText(start,end,callback)
-{
-    function formatSolarText(json)
-    {
-        let keys = Object.keys(json);
-        if(keys.length == 0)
-        {
-            callback("No solar activity was detected");
+let expectedResults, results;
+let textList, noteList;
+
+function getSolarEventText(start, end, callback) {
+    textList = [];
+    noteList = [];
+    expectedResults = 0;
+    results = 0;
+
+    function formatSolarText(json, eventName) {
+        results += 1;
+
+        //check for empty object
+        if (Object.keys(json).length == 0) {
+            if (expectedResults == results) {
+                callback(textList, noteList);
+            }
             return;
         }
-        let event = json[keys[Math.floor(Math.random()*keys.length)]];
-        console.log(event);
-        callback("CME found at " + event.startTime, event.note);
+
+        json.forEach(event => {
+            textList.push("A " + eventName + " was spotted at " + event.startTime);
+            noteList.push(event.note);
+        })
+
+        if (expectedResults == results) {
+            callback(textList, noteList);
+        }
     }
-    ajax.getJSON(donkiLink + `?type=${eventTypes[0].abvr}&start=${start}&end=${end}`,formatSolarText);
-    
+
+    eventTypes.forEach(event => {
+        let link = donkiLink + `?type=${event.abvr}&start=${start}&end=${end}`;
+        ajax.getJSON(link, formatSolarText, event.name);
+        expectedResults += 1;
+    });
+
 }
 
-export {getSolarEventText}
+export { getSolarEventText }
