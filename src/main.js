@@ -5,62 +5,66 @@ import * as text from "./text.js"
 import * as nytimes from "./nytimes.js"
 
 //html elements
-let textBox, calender, searchButton, randomButton, nytButton, spaceForcastButton;
+let textBox, calender, searchButton, randomButton, nytButton, spaceForecastButton, rabbitHoleButton, spaceNoteButton, resetButton, giphyToggleButton, nationalRadio, worldRadio;
 //holds lists of information needed for controls
-let timeslinks="", spaceNotes="";
+let timeslinks = "", spaceNotes = "";
 //index for additional control arrays
-let index = 0; 
+let index = 0;
 //most text in the application comes from the text generator
 let textGenerator;
 
-export function init()
-{
+export function init() {
     //control init
     textBox = document.querySelector("#return");
     calender = document.querySelector("#start");
     searchButton = document.querySelector("#search");
     randomButton = document.querySelector("#random");
     nytButton = document.querySelector("#article");
-    spaceForcastButton = document.querySelector("#forecast");
+    spaceForecastButton = document.querySelector("#forecast");
+    rabbitHoleButton = document.querySelector("#rabbitHole");
+    spaceNoteButton = document.querySelector("#spaceNote");
+    resetButton = document.querySelector("#reset");
+    giphyToggleButton = document.querySelector("#giphyToggle");
+    nationalRadio = document.querySelector("#national");
+    worldRadio = document.querySelector("#world");
 
     //create a generator with empty lists for creating loading text
-    textGenerator = new text.TextGenerator([],[]);
+    textGenerator = new text.TextGenerator([], []);
 
     //default calender to yesterday so apis have data to pull
     calender.value = dates.yesterday();
     search();
 
-
     setUpUI();
 }
 
 //puts the app into a loading state
-function loading()
-{
+function loading() {
     textBox.innerHTML = textGenerator.loading();
-    giphy.generateGif();
-    timeslink = "";
-    spaceNote = "";
+    timeslinks = "";
+    spaceNotes = "";
     index = 0;
 }
 
 //creates a new text generator and displays information
-function loaded(solarText,worldText)
-{
-    textGenerator = new text.TextGenerator(solarText,worldText);
+function loaded(solarText, worldText) {
+    textGenerator = new text.TextGenerator(solarText, worldText);
     textBox.innerHTML = textGenerator.next();
+
 }
 
 //advances text generator and other values
-function nextConspiricy()
-{
+function nextConspiricy() {
     index++;
     textBox.innerHTML = textGenerator.next();
 }
 
 //called to get new data from apis after params have been updated
-function search()
-{
+function search() {
+    if (giphyToggleButton.dataset.showing == "yes") {
+        giphy.generateGif();
+    }
+
     //init search
     loading();
 
@@ -69,45 +73,98 @@ function search()
     let worldText = [];
     let solarText = [];
 
-    function donkiCallback(mainText, additionalText)
-    {
+    function donkiCallback(mainText, additionalText) {
         solarText = mainText;
         spaceNotes = additionalText;
 
         //if other data is present loading is done, put app into loaded state
-        if(worldText.length > 0)
-            loaded(solarText,worldText);
+        if (worldText.length > 0)
+            loaded(solarText, worldText);
     }
 
-    function nytCallback(mainText, additionalText)
-    {
+    function nytCallback(mainText, additionalText) {
         worldText = mainText;
         timeslinks = additionalText;
-        
+
         //if other data is present loading is done, put app into loaded state
-        if(solarText.length > 0)
-            loaded(solarText,worldText);
+        if (solarText.length > 0)
+            loaded(solarText, worldText);
     }
 
-    spaceText.getSolarEventText(dates.addDays(date,-1),date,donkiCallback);
-    nytimes.getWorldEventText(date,nytCallback);
+    spaceText.getSolarEventText(dates.addDays(date, -1), date, donkiCallback);
+    nytimes.getWorldEventText(date, nytCallback);
 }
 
 //opens the nyt article refrenced in the currently displayed text
-function openTimes()
-{
-    if(timeslinks.length > index)
-    {
-        window.open(timeslinks[index],"_blank");
+function openTimes() {
+    if (timeslinks.length > index) {
+        window.open(timeslinks[index], "_blank");
     }
 }
 
 //associates controls with methods
-function setUpUI(){
+function setUpUI() {
+    // Basic buttons
     searchButton.onclick = search;
     nytButton.onclick = openTimes;
+    rabbitHoleButton.onclick = nextConspiricy;
+
+    // Shows all space notes at index
+    spaceNoteButton.onclick = _ => {
+        textBox.innerHTML += spaceNotes[index];
+    }
+
+    // Resets data
+    resetButton.onclick = _ => {
+        // Disable giphy
+        let bg = document.querySelector("body");
+        bg.style.backgroundImage = `none`;
+        giphyToggleButton.dataset.showing = "no";
+
+        // Reset calender
+        calender.value = dates.yesterday();
+
+        // reset radios
+        nationalRadio.checked = true;
+        worldRadio.checked = false;
+        nytimes.useNational();
+
+        // Search
+        search();
+    }
+
+    // Decides whether giphy is showing
+    giphyToggleButton.onclick = e => {
+        if (e.target.dataset.showing == "no") {
+            e.target.dataset.showing = "yes";
+            giphy.generateGif();
+
+            console.log("enable");
+        }
+        else {
+
+            let bg = document.querySelector("body");
+            bg.style.backgroundImage = `none`;
+
+            e.target.dataset.showing = "no";
+
+            console.log("disable");
+        }
+    }
+
+    // Generates conspiracy from random date
     randomButton.onclick = _ => {
         calender.value = dates.randomDateString();
+        search();
+    }
+
+    nationalRadio.onchange = e => {
+        nytimes.useNational();
+        search();
+
+    }
+    worldRadio.onchange = e => {
+        nytimes.useWorld();
         search();
     }
 }

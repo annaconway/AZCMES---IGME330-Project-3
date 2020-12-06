@@ -5,7 +5,7 @@ const giphyKey = "w8MbJ5dGqRnlxJgwl92jmKtIcMd2rsN9";
 
 let url, term, limit;
 
-//gets a gif
+// Returns gif
 function generateGif()
 {
    // BEGIN URL

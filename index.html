@@ -1,42 +1,76 @@
 <!DOCTYPE html>
 <html>
 
+<!-- HEAD  -->
+
 <head>
     <meta charset='utf-8' />
     <title>Conspiracy Generator</title>
 
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
     <link href='styles/default-styles.css' rel='stylesheet' />
     <script src="./src/loader.js" type="module"></script>
 </head>
 
+
+<!-- BODY  -->
+
 <body>
+
+    <!-- MAIN  -->
     <main>
+
+
+        <!-- SEARCH CONTROLS  -->
         <h1>Enter a date, search for the <i>truth</i></h1>
         <section id="Calender">
             <input type="date" id="start" name="trip-start" value="2020-01-01" min="2000-01-01" max="2020-11-15">
         </section>
 
         <br>
+
         <section id="InputButtons">
             <button id="search">Search</button>
             <button id="random">Random Date</button>
         </section>
 
-        <p id="return">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum iaculis malesuada ex non
-            bibendum. Praesent scelerisque lectus magna, gravida blandit lacus laoreet in. Donec sem sem, feugiat at
-            vehicula non, tempus eu tellus. Aenean maximus, leo laoreet sollicitudin luctus, arcu nunc aliquam ipsum,
-            sed lobortis dolor eros at eros. In hac habitasse platea dictumst. Mauris imperdiet pulvinar massa non
-            hendrerit. Ut ac arcu quam.</p>
+        <!-- RETURN TEXT  -->
+        <p id="return"></p>
 
+        <!-- MORE RESEARCH  -->
         <section id="OutputButtons">
             <button id="article">Read Article</button>
             <button id="forecast">Space Forecast</button>
         </section>
     </main>
 
+    <!-- INVISIBLE CONTROLS  -->
+    <aside id="UnlockButtons">
+
+        <!-- MORE CONSPIRACIES  -->
+        <button id="rabbitHole">Deeper down the rabbit hole</button><br>
+
+        <!-- CUSTOM CONSPIRACIES  -->
+        <section>
+            <input type="radio" id="national" name="news" value="national" checked>
+            <label for="national">Discover National Conspiracies</label><br>
+
+            <input type="radio" id="world" name="news" value="world">
+            <label for="world">Discover World Conspiracies</label><br>
+        </section>
+
+        <!-- CONTROLS  -->
+        <button id="spaceNote">Reveal space notes</button>
+        <button id="reset">Reset data</button>
+        <button id="giphyToggle" data-showing="no"></button>
+    </aside>
+
+    <!-- FOOTER  -->
     <footer>
+        <p><i>Conspiracy Generator by Matthew Sissom & Anna Conway</i></p>
     </footer>
 </body>
 

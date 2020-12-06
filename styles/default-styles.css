@@ -1,28 +1,81 @@
+/* PAGE LAYOUT*/
+
 body {
-    margin: 25% auto 25% auto;
+    margin: 5% auto 25% auto;
     width: 500px;  
+    background-color: black;
 }
 
-main{
-    margin: auto;
+main, #UnlockButtons{
+    margin: 5% auto;
     width: 90%;   
     border: 2px solid black;
     border-radius: 10px;
     padding: 30px; 
     background-color: rgba(255, 255, 255, 0.75);
+    font-family: 'Special Elite', cursive;
+    font-size: 12px;
 }
 
+footer{
+    padding-left: 70px;
+    padding-right: 40px;
+    width: 80%;   
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.75);
+    font-family: 'Special Elite', cursive;
+    font-size: 12px;
+}
+
+/* CONTROLS */
 #return{
     border: 2px solid black;
     border-radius: 10px;
     padding: 7px;
 }
 
-button{
+button{ 
+    font-family: 'Special Elite', cursive;
+    font-size: 11px;
+}
+
+#search, #random, #article, #forecast{
     margin-left: 10%;
-    width: 150px;
+    width: 150px;   
 }
 
 #Calender{
     margin-left: 35%;
 }
+
+#reset, #spaceNote, #giphyToggle
+{
+    margin: 7px;
+    width:130px;
+}
+#rabbitHole
+{
+    margin-left: 100px;
+    width:250px;
+}
+
+#national, #world{
+    margin-left: 25%;
+}
+
+#national{    
+    margin-top: 5%;
+}
+#world{    
+    margin-bottom: 5%;
+}
+
+
+button[data-showing="yes"]:after{
+    content: "Disable Giphy";
+  }
+  
+  button[data-showing="no"]:after{
+    content: "Enable Giphy";
+  }
