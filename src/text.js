@@ -60,7 +60,7 @@ class TextGenerator {
 
     //returns loading text
     loading() {
-        return randomElement(loadingText) + "...";
+        return randomElement(loadingText) + "...   (this might take awhile)";
     }
 
     //gets the next event, if all events have been seen then returns no results text
