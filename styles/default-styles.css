@@ -65,6 +65,9 @@ button{
 #world{    
     margin-bottom: 5%;
 }
+#unlockButtons{
+    visibility: hidden;
+}
 
 
 button[data-showing="yes"]:after{
