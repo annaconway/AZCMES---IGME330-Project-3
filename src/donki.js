@@ -52,6 +52,7 @@ function getSolarEventText(start, end, callback) {
 
         //check for empty object
         if (Object.keys(json).length == 0) {
+            console.log("empty");
             if (expectedResults == results) {
                 callback(textList, noteList);
             }

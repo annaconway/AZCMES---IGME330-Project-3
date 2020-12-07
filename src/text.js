@@ -51,8 +51,6 @@ class TextGenerator {
         this.spaceEvents = spaceEventList;
         this.worldEvents = worldEventList;
 
-        console.log(worldEventList)
-
         this.currentIndex = 0;
         //max index is equal to the lesser of the two array lengths
         this.maxIndex = Math.min(this.spaceEvents.length-1, this.worldEvents.length-1);
@@ -67,7 +65,6 @@ class TextGenerator {
     next() {
         if(this.currentIndex <= this.maxIndex)
         {
-            console.log(this.worldEvents);
             let string = "";
             if(this.currentIndex > 0)
                 string += randomElement(sameDayText);
