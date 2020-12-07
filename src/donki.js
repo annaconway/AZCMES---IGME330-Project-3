@@ -46,6 +46,9 @@ function getSolarEventText(start, end, callback) {
     expectedResults = 0;
     results = 0;
 
+    callback(["time"],["note"]);
+    return;
+
     function formatSolarText(json, eventName) {
         //increment amount of results recived
         results += 1;

@@ -6,12 +6,12 @@ const fliterStart = "&fq=section_name:(\"";
 const filterMid = "\") AND pub_date:(";
 const key = "&api-key=8iYDdnGGzxrl05WTA0GZWNdKMJjE3I5O";
 
-let newsType = "National";
+let newsType = "U.S.";
 
 // Switches to national news
 function useNational()
 {
-    newsType = "National";
+    newsType = "U.S.";
 }
 
 // Switches to world news
@@ -26,7 +26,7 @@ function getWorldEventText(date, callback) {
         let numArticles = json.response.docs.length;
 
         if (numArticles == 0) {
-            callback("no signignificant events happened.");
+            callback(["no signignificant events happened."],[""]);
             return;
         }
         let articles = [];
