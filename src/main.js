@@ -143,6 +143,8 @@ function setUpUI() {
     nytButton.onclick = openTimes;
     rabbitHoleButton.onclick = nextConspiricy;
 
+    calender.max = dates.yesterday();
+
     // Shows all space notes at index
     spaceNoteButton.onclick = _ => {
 
