@@ -58,14 +58,14 @@ function getSolarEventText(start, end, callback) {
 
         //add all events to data structures
         json.forEach(event => {
-            let str = "A " + eventName + " was spotted";
+            let str = "A " + eventName + " was spotted ";
             //add time if documented
-            if(startTime in event)
+            if(event.startTime != null)
                 str += "at " + event.startTime;
 
             textList.push(str);
 
-            if(note in event)
+            if(event.note != null)
                 noteList.push(event.note);
             else
                 noteList.push("No additional information");
