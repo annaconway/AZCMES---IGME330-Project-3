@@ -40,7 +40,7 @@ function loadGiphy(e) {
 
     // FAIL
     if (!obj.data || obj.data.length == 0) {
-        document.querySelector("#status").innerHTML = "<b> No results found for '" + displayTerm + "'</b>";
+        console.log("fail");
         return;
     }
 
