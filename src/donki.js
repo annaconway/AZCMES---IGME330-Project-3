@@ -2,7 +2,7 @@ import * as ajax from './ajax.js'
 
 const donkiLink = "https://people.rit.edu/mes3585/330/project3/php/donki-proxy.php";
 
-//holds all solar events that donki supports and their corresponding abvr
+// Holds all solar events that donki supports and their corresponding abvr
 const eventTypes = [
     {
         name: "Coronal Mass Ejection",
@@ -30,14 +30,16 @@ const eventTypes = [
     }
 ]
 
-//expected results holds the number of responses expected from the donki proxy server,
-//results holds the number of results recived
+// Expected results holds the number of responses expected from the donki proxy server,
+// Results holds the number of results recived
 let expectedResults, results;
-//text list holds all solar event text, notes holds all additional information returned by the api
+
+// Text list holds all solar event text
+// Notes holds all additional information returned by the api
 let textList, noteList;
 
-//gets all available solar events in the range between the given start and end dates
-//start and end should be formated as "yyyy-MM-dd" strings
+// Gets all available solar events in the range between the given start and end dates
+// Start and end should be formated as "yyyy-MM-dd" strings
 function getSolarEventText(start, end, callback) {
     textList = [];
     noteList = [];

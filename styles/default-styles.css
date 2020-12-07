@@ -40,7 +40,7 @@ button{
     font-size: 11px;
 }
 
-#search, #random, #article, #forecast{
+#search, #random, #article, #spaceNote, #reset, #giphyToggle{
     margin-left: 10%;
     width: 150px;   
 }
@@ -49,11 +49,6 @@ button{
     margin-left: 35%;
 }
 
-#reset, #spaceNote, #giphyToggle
-{
-    margin: 7px;
-    width:130px;
-}
 #rabbitHole
 {
     margin-left: 100px;
