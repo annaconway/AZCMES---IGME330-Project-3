@@ -50,7 +50,6 @@ function loadGiphy(e) {
 
     // RANDOM GIF
     let result = results[Math.trunc(utils.getRandom(0, results.length))];
-    console.log(Math.trunc(utils.getRandom(0, results.length)));
     let smallURL = result.images.fixed_height.url;
 
     if (!smallURL) smallURL = "images/no-image-found.png";
@@ -65,9 +64,7 @@ function loadGiphy(e) {
 
     bigString += line;
 
-    // ADD RESULTS TO PAGE
-    console.log(bigString);
-    
+    // ADD RESULTS TO PAGE    
     let bg = document.querySelector("body");
     bg.style.backgroundImage = `url('${smallURL})`;
     bg.style.height = `100%`;

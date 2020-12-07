@@ -6,14 +6,20 @@ const loadingText =
         "Seeing through the lies",
         "Consulting the lizard people",
         "Connecting the dots",
-        "Listening to the voices in our heads"
+        "Listening to the voices in our heads",
+        "Hacking into the government",
+        "Reaching out to informants",
+        "Discovering the truth"
     ]
 //crazy text is added at the end of all final text, implies relationship between 
 //two totally unrelated events
 const crazyText =
     [
-        "Conncidence? Unlikely.",
-        "Anyone could see the alien influence that cause this.",
+        " Coincidence? Unlikely.",
+        " Anyone could see the alien influence that caused this.",
+        " The government doesn't want us to know.",
+        " Open your eyes!",
+        " Now you know the truth."
     ]
 //used to transition from one event to the other
 const concuranceText =
@@ -22,7 +28,7 @@ const concuranceText =
         " within 24 hours of ",
         " at the same time as ",
         " and at the exact same moment ",
-        " within seconds "
+        " within seconds of "
     ]
 //used for subsequent events returned from the same search
 const sameDayText = 

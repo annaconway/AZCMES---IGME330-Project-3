@@ -44,12 +44,28 @@ function loading() {
     timeslinks = "";
     spaceNotes = "";
     index = 0;
+
+    // Disable buttons so user doesn't overload the server
+    nytButton.disabled = true;
+    rabbitHoleButton.disabled = true;
+    spaceForecastButton.disabled = true;
+    spaceNoteButton.disabled = true;
+    nationalRadio.disabled = true;
+    worldRadio.disabled = true;
 }
 
 //creates a new text generator and displays information
 function loaded(solarText, worldText) {
     textGenerator = new text.TextGenerator(solarText, worldText);
     textBox.innerHTML = textGenerator.next();
+
+    // Re-enable buttons for user to use
+    nytButton.disabled = false;
+    rabbitHoleButton.disabled = false;
+    spaceForecastButton.disabled = false;
+    spaceNoteButton.disabled = false;
+    nationalRadio.disabled = false;
+    worldRadio.disabled = false;
 
 }
 
@@ -111,7 +127,15 @@ function setUpUI() {
 
     // Shows all space notes at index
     spaceNoteButton.onclick = _ => {
-        textBox.innerHTML += spaceNotes[index];
+
+        if (spaceNotes[index] != null) {
+            textBox.innerHTML += "<br> <br>";
+            textBox.innerHTML += spaceNotes[index];
+        }
+        else {
+            textBox.innerHTML += "<br> <br>";
+            textBox.innerHTML += "No notes found.";
+        }
     }
 
     // Resets data
@@ -138,17 +162,13 @@ function setUpUI() {
         if (e.target.dataset.showing == "no") {
             e.target.dataset.showing = "yes";
             giphy.generateGif();
-
-            console.log("enable");
         }
         else {
 
             let bg = document.querySelector("body");
             bg.style.backgroundImage = `none`;
-
             e.target.dataset.showing = "no";
 
-            console.log("disable");
         }
     }
 
